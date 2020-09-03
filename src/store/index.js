@@ -53,7 +53,7 @@ export default new Vuex.Store({
     setContacts: ({
       commit
     }) => {
-      commit("SET_CONTACTS", ls.getContacts())
+      commit("SET_CONTACTS", ls.getContacts() ? JSON.parse(ls.getContacts()) : [])
     }
   },
   modules: {}
