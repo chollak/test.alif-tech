@@ -1,6 +1,6 @@
 const TABLE_CONTACTS = "alif-contacts";
 
-export const getConctacts = () => {
+export const getContacts = () => {
     return window.localStorage.getItem(TABLE_CONTACTS);
 };
 
@@ -13,7 +13,7 @@ export const destroyContacts = () => {
 };
 
 export default {
-    getConctacts,
+    getContacts,
     saveContacts,
     destroyContacts
 };
