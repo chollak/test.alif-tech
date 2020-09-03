@@ -8,6 +8,12 @@ export default new Vuex.Store({
   state: {
     contacts: [],
   },
+  getters: {
+    getContact: state => id => {
+      return state.contacts.find(contact => contact.id === id)
+    },
+    getLength: state => state.contacts.length
+  },
   mutations: {
     SET_CONTACTS: (state, payload) => {
       state.contacts = payload
