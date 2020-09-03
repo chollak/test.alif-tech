@@ -1,0 +1,124 @@
+<template>
+  <div class="update">
+    <h6>
+      <router-link :to="{name:'Home'}">Back to home</router-link>
+    </h6>
+    <div class="contact" v-if="contact">
+      <h3 class="mb-4">Update contact</h3>
+
+      <form @submit.prevent="save()">
+        <div class="form-group">
+          <label for="name mb-5">Name</label>
+          <input type="text" class="form-control" id="name" required v-model="contact.name" />
+        </div>
+        <div class="form-group mb-5 mt-5">
+          <label for="phone" style="width:100%">
+            Phone
+            <small class="float-right">
+              <div class="btn btn-sm btn-primary" @click="add('phones')">+</div>
+            </small>
+          </label>
+          <div class="d-flex mb-1" v-for="(phone,index) in contact.phones" :key="index">
+            <input
+              type="text"
+              class="form-control"
+              :placeholder="`${index+1} phone`"
+              id="phone"
+              required
+              v-model="contact.phones[index]"
+            />
+            <div class="d-flex ml-3">
+              <div class="m-auto btn btn-sm btn-danger" @click="remove('phones',index)">x</div>
+            </div>
+          </div>
+        </div>
+        <div class="form-group mb-5 mt-5">
+          <label for="address" style="width:100%">
+            Address
+            <small class="float-right">
+              <div class="btn btn-sm btn-primary" @click="add('addresses')">+</div>
+            </small>
+          </label>
+          <div class="d-flex mb-1" v-for="(address,index) in contact.addresses" :key="index">
+            <input
+              type="text"
+              class="form-control"
+              :placeholder="`${index+1} address`"
+              id="address"
+              required
+              v-model="contact.addresses[index]"
+            />
+            <div class="d-flex ml-3">
+              <div class="m-auto btn btn-sm btn-danger" @click="remove('addresses',index)">x</div>
+            </div>
+          </div>
+        </div>
+        <div class="form-group mb-5 mt-5">
+          <label for="email" style="width:100%">
+            Email
+            <small class="float-right">
+              <div class="btn btn-sm btn-primary" @click="add('emails')">+</div>
+            </small>
+          </label>
+          <div class="d-flex mb-1" v-for="(email,index) in contact.emails" :key="index">
+            <input
+              type="email"
+              class="form-control"
+              :placeholder="`${index+1} email`"
+              id="email"
+              required
+              v-model="contact.emails[index]"
+            />
+            <div class="d-flex ml-3">
+              <div class="m-auto btn btn-sm btn-danger" @click="remove('emails',index)">x</div>
+            </div>
+          </div>
+        </div>
+        <button class="btn btn-sm btn-success">Save</button>
+      </form>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  mounted() {
+    if (!this.contact) {
+      this.$router.push({ name: "About" });
+    }
+  },
+  computed: {
+    contact() {
+      return this.$store.getters.getContact(Number(this.$route.params.id));
+    }
+  },
+  methods: {
+    save() {
+      this.$store.dispatch("updateContact", this.contact);
+      this.$router.push({
+        name: "Read",
+        params: { id: Number(this.$route.params.id) }
+      });
+    },
+    add(type) {
+      if (
+        this.contact[type].length &&
+        this.contact[type][this.contact[type].length - 1] == ""
+      ) {
+        return;
+      }
+      this.contact[type].push("");
+    },
+    remove(type, index) {
+      if (this.contact[type].length === 1) {
+        this.contact[type] = [""];
+        return;
+      }
+      this.contact[type].splice(index, 1);
+    }
+  }
+};
+</script>
+
+<style>
+</style>
