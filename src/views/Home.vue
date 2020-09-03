@@ -1,7 +1,8 @@
 <template>
   <div class="home">
-    <router-link to="/create">Create</router-link>
+    <router-link to="/create" class="btn btn-outline-primary">Create</router-link>
     <hr />
+    <input type="text" class="form-control mb-3" placeholder="Enter name to search" v-model="search" />
     <div class="list-group">
       <router-link
         :to="{ name: 'Read', params: { id: contact.id }}"
@@ -21,13 +22,23 @@
 
 export default {
   name: "Home",
+  data() {
+    return {
+      search: ""
+    };
+  },
   computed: {
     count() {
       return this.$store.getters.getLength;
     },
-    contacts() {
+    getContacts() {
       return this.$store.state.contacts;
+    },
+    contacts() {
+      return this.getContacts.filter(contact => {
+        return contact.name.toLowerCase().match(this.search.toLowerCase());
+      });
     }
-  },
+  }
 };
 </script>
