@@ -95,7 +95,7 @@ export default {
     save() {
       this.newContact.id = this.$store.getters.getLength;
       this.$store.dispatch("addContact", this.newContact);
-      this.$router.go();
+      this.$router.push({ name: "Create" });
     },
     add(type) {
       if (
