@@ -1,5 +1,8 @@
 # test.alif-tech
 
+## Demo on Netlify
+See [https://loving-jennings-e2f2ee.netlify.app/](https://loving-jennings-e2f2ee.netlify.app/).
+
 ## Project setup
 ```
 npm install
