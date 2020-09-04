@@ -2,7 +2,13 @@
   <div class="home">
     <router-link to="/create" class="btn btn-outline-primary">Create</router-link>
     <hr />
-    <input type="text" class="form-control mb-3" placeholder="Enter name to search" v-model="search" />
+    <input
+      type="text"
+      class="form-control mb-3"
+      placeholder="Enter name to search"
+      v-model="search"
+    />
+    <p class="lead" v-if="contacts==''">There is no contact</p>
     <div class="list-group">
       <router-link
         :to="{ name: 'Read', params: { id: contact.id }}"
